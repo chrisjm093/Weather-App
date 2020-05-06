@@ -1,0 +1,54 @@
+/* Header */
+header {
+   background-color: darkslategrey;
+    border-bottom: grey 1px solid;
+    max-height: 22em;
+    font-family: 'Lato', sans-serif;
+    font-size: 10vw;
+    text-align: center;
+    color: white;
+}
+
+@media screen and (max-width: 379) {
+    header {
+      font-size: 10vw;
+    }
+  }
+.fas {
+    color: rgb(255, 242, 59);
+}
+
+/* body elements */
+body {
+    background-image: url("https://images.unsplash.com/photo-1499346030926-9a72daac6c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");
+    background-position: center fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.city-container {
+    max-width: 25em;
+    background: rgb(219, 219, 219);
+    margin-left: 3em;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-right: 2px
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    max-width: 70%;
+    border: rgb(163, 163, 163) 1px solid;
+}
+
+.city-cards{
+    width: 95%;
+    border: rgb(163, 163, 163) 1px solid;
+
+}
