@@ -26,7 +26,7 @@ body {
     background-size: cover;
 }
 
-.city-container {
+.search-container {
     max-width: 25em;
     background: rgb(219, 219, 219);
     margin-left: 3em;
@@ -50,5 +50,19 @@ p {
 .city-cards{
     width: 95%;
     border: rgb(163, 163, 163) 1px solid;
+    padding-bottom: 5px;
+}
 
+.city-container {
+    border: solid 1px  rgb(163, 163, 163) ;
+    margin-left: 1em;
+    max-width: 44em;
+}
+
+#five-day{
+    margin-left: 15px;
+}
+
+.five-day-cards{
+    color: white;
 }
