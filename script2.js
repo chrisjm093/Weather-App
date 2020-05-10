@@ -5,12 +5,12 @@ var cacheKey = 'savedCity';
 // Get my starting data, try to load from local storage
 var citiesArr = JSON.parse(localStorage.getItem( cacheKey ) );
 
-
-console.log(citiesArr)
 if( !citiesArr ) {
     citiesArr = [];
-    
+            
 }
+console.log(citiesArr)
+
 
 
 //Starting point
@@ -19,9 +19,9 @@ function searchWeather( ) {
         event.preventDefault();
         var city = $('#search-term').val();
     
-    console.log( 'Searched City: ' + city );
 
-    addNewCity( city );
+
+    
 
     fetchCityWeather(city);
     
@@ -29,6 +29,27 @@ function searchWeather( ) {
 
 }
 
+function compileCityList( citiesArr ){
+    console.log(citiesArr.length);
+    console.log('entered compile city list function');    
+     
+    citiesArr.forEach(e => {
+        var html = "<button class='city' data-city='" + e + "'>" + e + "</button>";
+    $('#cities-list').prepend(html)
+    console.log(e)
+});
+
+    $('.city').each(function( ) {
+        $( this ).click(function(){
+            var cityName = $(this).data('city');
+            console.log(cityName);
+            console.log(compileCityList);
+            fetchCityWeather(cityName);
+        })
+    });
+}
+
+//}
 
 //Get weather from API
 // Fetch new data from the API if we don't have it
@@ -41,8 +62,8 @@ function fetchCityWeather( city ){
         url: cityURL,
         method: "GET"
       }).then(function (response) {
-        console.log('initial api call response:')
-        console.log(response);
+        // console.log('initial api call response:')
+        // console.log(response);
      
         $('#city-name').html(response.name + " " + currentDay );
         
@@ -50,63 +71,66 @@ function fetchCityWeather( city ){
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
     var queryURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&exclude=hourly' + apiKey;
-    //var iconCode = response.weather[0].icon;
+   
     var weatherImg = 'http://openweathermap.org/img/w/'+ response.weather[0].icon + '.png'
-        
     
+    //sends searched city to function to add it to the stored cities array
+    addNewCity(cityName)
+
+    //displays image icon of current weather
     $('.weather-img').attr("src", weatherImg)
 
-   //push city into an citiesarr
-        citiesArr.push(cityName)
-$.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function (data) {
-    console.log(data)
-    var uvIndex = data.current.uvi
-    renderCityData(data)
-    renderUVIndex(uvIndex)
-    renderForcast(data);
+  
+       
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (data) {
+        //console.log(data)
+        var uvIndex = data.current.uvi
+        renderCityData(data);
+        renderUVIndex(uvIndex);
+        renderForcast(data);
+        
     })
 })};
 
 //render five day forcast
 function renderForcast(data) {
-    console.log(data)
-    //use timestamp from data.daily.dt as teh const timestamp, put it in the loop
-    // const timestamp = 1519482900000; 
-    // const formatted = moment(timestamp).format('L')
+   // console.log('entered renderForcast function' + data)
 
+    for (var i = 0; i < 5; i++){
+        var weatherImg = 'http://openweathermap.org/img/w/'+ data.daily[i].weather[0].icon + '.png';
+        var formattedDate = moment.unix(data.daily[i].dt).format('l')
+       
 
-
-    //!!!!!!You left off here!! Loop over array, drill down into data.daily array to getinformation
-    for (var i = 0; i < 6; i++){
-        var weatherImg = 'http://openweathermap.org/img/w/'+ response.weather[0].icon + '.png';
-
-        $('.weather-img' + i).attr("src", weatherImg)
-        $('#temp-' + i).html('Temperature: ' + data.current.temp + '°F');
-        $('#humidity-' + i).html('Humidity: ' + data.current.humidity + '%');
+         $('#forcast-' + i).html(formattedDate)
+        $('.weather-img-' + i).attr("src", weatherImg)
+        $('#temp-' + i).html('Temp: ' + Math.round(data.daily[i].temp.day) + '°F');
+        $('#humidity-' + i).html('Humidity: ' + data.daily[i].humidity + '%');
         
     }
 }
-// Display the city weather data
+
+
+// Display the searched city weather data
 function renderCityData( data ){
 
-    console.log( 'able to render city data for: ' + citiesArr[0] );
+    //console.log( 'able to render city data for: ' + citiesArr[0] );
     
         //try to get city data
        var cityName = citiesArr[0];
 
-    console.log("this is the city data: " + cityName);
+    //console.log("this is the city data: " + cityName);
         if( !cityName ) {
     
-            console.log( 'did not get data, exiting render function' );
+            //console.log( 'did not get data, exiting render function' );
             //exit function if no data available
             return;
         }
     
         //render data to HTML
-        console.log( 'Got the city Data, render HTML' );
+        //console.log( 'Got the city Data, render HTML' );
        
         $('#temp').html('Temperature: ' + data.current.temp + '°F');
         $('#humidity').html('Humidity: ' + data.current.humidity + '%');
@@ -115,7 +139,9 @@ function renderCityData( data ){
     };
 
 function renderUVIndex(uvIndex){
-    $('#uv-index').prepend('UV Index:  ')
+   
+    $('#uv-index').html('UV Index:  ')
+   
     if( uvIndex > 5 ){
         
         $('#uv-index-span').html( uvIndex );
@@ -136,20 +162,20 @@ function renderUVIndex(uvIndex){
 
 }
 
-    function addNewCity(city) {
+    function addNewCity(cityName) {
        
        
-        console.log('try to add new city')
-        if(citiesArr.indexOf(city) === -1){
+       // console.log( cityName )
+        if(citiesArr.indexOf(cityName) === -1){
             console.log('adding new city to storage')
-            citiesArr.push( city );
+            citiesArr.push( cityName );
             localStorage.setItem( cacheKey, JSON.stringify( citiesArr ) );
         }
 
-    }
+    };
 
 
-    console.log('saved cities: ' + citiesArr)
+    //console.log('saved cities: ' + citiesArr)
     // Location established by client allowing location access
 // function getLocation() {
 //     // Make sure browser supports this feature
@@ -192,4 +218,4 @@ function renderUVIndex(uvIndex){
 
 // getLocation();
 searchWeather();
-
+compileCityList(citiesArr);

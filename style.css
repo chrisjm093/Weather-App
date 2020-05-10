@@ -27,9 +27,9 @@ body {
 }
 
 .search-container {
-    max-width: 25em;
+    max-width: 20em;
     background: rgb(219, 219, 219);
-    margin-left: 3em;
+    
     padding-left: 5px;
     padding-top: 2px;
     padding-right: 2px
@@ -50,7 +50,8 @@ p {
 .city-cards{
     width: 95%;
     border: rgb(163, 163, 163) 1px solid;
-    padding-bottom: 5px;
+    text-align: left;
+    font-family: 'Lato', sans-serif;
 }
 
 .city-container {
@@ -65,10 +66,21 @@ p {
 
 .five-day-cards{
     color: white;
+    padding: .7em;
+    
 }
 
 #uv-index-span{
     color: white;
 
+}
 
+#uv-index-text {
+    display: inline-block;
+}
+
+#uv-index-card {
+    display: inline-block;
+    
+    
 }
