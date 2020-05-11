@@ -163,46 +163,46 @@ function renderUVIndex(uvIndex){
     };
 
     // Location established by client allowing location access
-// function getLocation() {
-//     // Make sure browser supports this feature
-//     if (navigator.geolocation) {
-//         // Provide our showPosition() function to getCurrentPosition
-//         navigator.geolocation.getCurrentPosition(showPosition);
+function getLocation() {
+    // Make sure browser supports this feature
+    if (navigator.geolocation) {
+        // Provide our showPosition() function to getCurrentPosition
+        navigator.geolocation.getCurrentPosition(showPosition);
             
-//     }else {
-//         alert("Geolocation is not supported by this browser.");
-//         }
-//       };
+    }else {
+        alert("Geolocation is not supported by this browser.");
+        }
+      };
 
-// //establish client location to populate initial page load
-// function showPosition(position) {
-//     // Grab coordinates from the given object
-//     var latitude = position.coords.latitude;
-//     var longitude = position.coords.longitude;
+//establish client location to populate initial page load
+function showPosition(position) {
+    // Grab coordinates from the given object
+    var latitude = position.coords.latitude.toFixed(4);
+    var longitude = position.coords.longitude.toFixed(4);
 
-//     console.log("Your coordinates have been read");
+    console.log("Your coordinates have been read");
 
-//     // Call function to run ajax request to pull weather data based on current location
-//     yourLocationWeather(latitude, longitude);
-// }
+    // Call function to run ajax request to pull weather data based on current location
+    yourLocationWeather(latitude, longitude);
+}
 
-// function yourLocationWeather( latitude, longitude ) {
-//     var apiKey = '&appid=b632ec08df3670825eeb6363ee690a0e';
-//     var queryURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&exclude=hourly' + apiKey;
+function yourLocationWeather( latitude, longitude ) {
+    //var apiKey = '3620c85faf154e74a7e16400eae1d31e';
+    var queryURL = 'https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key=3620c85faf154e74a7e16400eae1d31e';
         
-//     console.log("latitude: " + latitude + " longitude: " + longitude);
+    console.log("latitude: " + latitude + " longitude: " + longitude);
     
-//     $.ajax({
-//         url: queryURL,
-//         method: "GET"
-//     }).then(function (response) {
-//         console.log(response)
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response.results[0].components.city)
         
-//         renderCityData(response)
-//     })
-// };  
+        fetchCityWeather(response.results[0].components.city)
+    })
+};  
 
-// getLocation();
+getLocation();
 
 searchWeather();
 compileCityList(citiesArr);
