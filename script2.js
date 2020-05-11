@@ -1,4 +1,3 @@
-console.log('Start Weather APPPPPP!');
 var currentDay = moment().format('L');
 var cacheKey = 'savedCity';
 
@@ -30,20 +29,17 @@ function searchWeather( ) {
 }
 
 function compileCityList( citiesArr ){
-    console.log(citiesArr.length);
-    console.log('entered compile city list function');    
-     
+      
     citiesArr.forEach(e => {
         var html = "<button class='city' data-city='" + e + "'>" + e + "</button>";
     $('#cities-list').prepend(html)
-    console.log(e)
+   
 });
 
     $('.city').each(function( ) {
         $( this ).click(function(){
             var cityName = $(this).data('city');
-            console.log(cityName);
-            console.log(compileCityList);
+            
             fetchCityWeather(cityName);
         })
     });
@@ -62,8 +58,7 @@ function fetchCityWeather( city ){
         url: cityURL,
         method: "GET"
       }).then(function (response) {
-        // console.log('initial api call response:')
-        // console.log(response);
+      
      
         $('#city-name').html(response.name + " " + currentDay );
         
@@ -86,7 +81,7 @@ function fetchCityWeather( city ){
         url: queryURL,
         method: "GET"
     }).then(function (data) {
-        //console.log(data)
+      
         var uvIndex = data.current.uvi
         renderCityData(data);
         renderUVIndex(uvIndex);
@@ -97,7 +92,7 @@ function fetchCityWeather( city ){
 
 //render five day forcast
 function renderForcast(data) {
-   // console.log('entered renderForcast function' + data)
+   
 
     for (var i = 0; i < 5; i++){
         var weatherImg = 'http://openweathermap.org/img/w/'+ data.daily[i].weather[0].icon + '.png';
@@ -116,21 +111,16 @@ function renderForcast(data) {
 // Display the searched city weather data
 function renderCityData( data ){
 
-    //console.log( 'able to render city data for: ' + citiesArr[0] );
-    
         //try to get city data
        var cityName = citiesArr[0];
 
-    //console.log("this is the city data: " + cityName);
         if( !cityName ) {
     
-            //console.log( 'did not get data, exiting render function' );
             //exit function if no data available
             return;
         }
     
         //render data to HTML
-        //console.log( 'Got the city Data, render HTML' );
        
         $('#temp').html('Temperature: ' + data.current.temp + '°F');
         $('#humidity').html('Humidity: ' + data.current.humidity + '%');
@@ -163,9 +153,7 @@ function renderUVIndex(uvIndex){
 }
 
     function addNewCity(cityName) {
-       
-       
-       // console.log( cityName )
+         
         if(citiesArr.indexOf(cityName) === -1){
             console.log('adding new city to storage')
             citiesArr.push( cityName );
@@ -174,8 +162,6 @@ function renderUVIndex(uvIndex){
 
     };
 
-
-    //console.log('saved cities: ' + citiesArr)
     // Location established by client allowing location access
 // function getLocation() {
 //     // Make sure browser supports this feature
@@ -217,5 +203,6 @@ function renderUVIndex(uvIndex){
 // };  
 
 // getLocation();
+
 searchWeather();
 compileCityList(citiesArr);
