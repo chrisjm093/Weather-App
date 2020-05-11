@@ -94,7 +94,7 @@ function fetchCityWeather( city ){
 function renderForcast(data) {
    
 
-    for (var i = 0; i < 5; i++){
+    for (var i = 1; i < 6; i++){
         var weatherImg = 'http://openweathermap.org/img/w/'+ data.daily[i].weather[0].icon + '.png';
         var formattedDate = moment.unix(data.daily[i].dt).format('l')
        
