@@ -10,6 +10,32 @@ if( !citiesArr ) {
 }
 console.log(citiesArr)
 
+function getRandomImage() {
+    var images = ["url('https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg')", 
+                "url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')", 
+                "url('https://cdn.pixabay.com/photo/2018/08/23/07/35/thunderstorm-3625405_960_720.jpg', 'https://cdn.pixabay.com/photo/2013/02/21/19/10/sea-84629_960_720.jpg')", 
+                "url('https://cdn.pixabay.com/photo/2016/10/18/21/22/california-1751455_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2013/10/02/23/03/dawn-190055_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2015/11/22/15/16/lightning-1056419_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2018/04/12/18/13/sunset-3314275_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2017/01/06/23/04/homberg-1959229_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2017/12/29/18/47/nature-3048299_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2018/05/30/00/24/thunderstorm-3440450_960_720.jpg')",
+                "url('https://cdn.pixabay.com/photo/2016/10/25/14/03/clouds-1768967_960_720.jpg')"];
+    var image = images[Math.floor(Math.random()*images.length)];
+     console.log(image)
+   
+   document.body.style.backgroundImage = image
+    }
+
+getRandomImage()
+
+
+    
+   
+       
+        
 
 
 //Starting point
@@ -58,8 +84,10 @@ function fetchCityWeather( city ){
         url: cityURL,
         method: "GET"
       }).then(function (response) {
-      
-     
+    //   if (response == null){
+    //       alert("City not Found, please enter a valid city")
+    //   }
+    //  console.log(response)
         $('#city-name').html(response.name + " " + currentDay );
         
     var cityName = response.name
@@ -180,7 +208,6 @@ function showPosition(position) {
     var latitude = position.coords.latitude.toFixed(4);
     var longitude = position.coords.longitude.toFixed(4);
 
-    console.log("Your coordinates have been read");
 
     // Call function to run ajax request to pull weather data based on current location
     yourLocationWeather(latitude, longitude);
@@ -190,7 +217,6 @@ function yourLocationWeather( latitude, longitude ) {
     //var apiKey = '3620c85faf154e74a7e16400eae1d31e';
     var queryURL = 'https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key=3620c85faf154e74a7e16400eae1d31e';
         
-    console.log("latitude: " + latitude + " longitude: " + longitude);
     
     $.ajax({
         url: queryURL,
