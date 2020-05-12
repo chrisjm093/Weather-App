@@ -10,6 +10,7 @@ if( !citiesArr ) {
 }
 console.log(citiesArr)
 
+//function randomly generates image for background
 function getRandomImage() {
     var images = ["url('https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg')", 
                 "url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')", 
