@@ -8,7 +8,6 @@ if( !citiesArr ) {
     citiesArr = [];
             
 }
-console.log(citiesArr)
 
 //function randomly generates image for background
 function getRandomImage() {
@@ -26,7 +25,7 @@ function getRandomImage() {
                 "url('https://cdn.pixabay.com/photo/2018/05/30/00/24/thunderstorm-3440450_960_720.jpg')",
                 "url('https://cdn.pixabay.com/photo/2016/10/25/14/03/clouds-1768967_960_720.jpg')"];
     var image = images[Math.floor(Math.random()*images.length)];
-     console.log(image)
+     
    
    document.body.style.backgroundImage = image
     }
@@ -46,10 +45,6 @@ function searchWeather( ) {
         event.preventDefault();
         var city = $('#search-term').val();
     
-
-
-    
-
     fetchCityWeather(city);
     
     });
@@ -73,7 +68,6 @@ function compileCityList( citiesArr ){
     });
 }
 
-//}
 
 //Get weather from API
 // Fetch new data from the API if we don't have it
@@ -86,10 +80,7 @@ function fetchCityWeather( city ){
         url: cityURL,
         method: "GET"
       }).then(function (response) {
-    //   if (response == null){
-    //       alert("City not Found, please enter a valid city")
-    //   }
-    //  console.log(response)
+ 
         $('#city-name').html(response.name + " " + currentDay );
         
     var cityName = response.name
@@ -158,6 +149,7 @@ function renderCityData( data ){
     
     };
 
+    //display UV index within a color coded tile that indicates severity level
 function renderUVIndex(uvIndex){
    
     $('#uv-index').html('UV Index:  ')
@@ -204,19 +196,19 @@ function getLocation() {
         }
       };
 
-//establish client location to populate initial page load
+
 function showPosition(position) {
     // Grab coordinates from the given object
     var latitude = position.coords.latitude.toFixed(4);
     var longitude = position.coords.longitude.toFixed(4);
 
 
-    // Call function to run ajax request to pull weather data based on current location
+    // Call function that runs ajax request to pull weather data based on current location
     yourLocationWeather(latitude, longitude);
 }
-
+//ajax call that converts latitude and longitude to the closes city
 function yourLocationWeather( latitude, longitude ) {
-    //var apiKey = '3620c85faf154e74a7e16400eae1d31e';
+    
     var queryURL = 'https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key=3620c85faf154e74a7e16400eae1d31e';
         
     
@@ -224,7 +216,7 @@ function yourLocationWeather( latitude, longitude ) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response.results[0].components.city)
+        
         
         fetchCityWeather(response.results[0].components.city)
     })
