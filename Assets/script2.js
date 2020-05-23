@@ -41,6 +41,13 @@ getRandomImage()
 
 //Starting point
 function searchWeather( ) {
+    $('#search-term').keyup( e => {
+        
+        if (e.keyCode === 13){
+            e.preventDefault();
+            $('#search-button').click();
+        }
+    });
     $('#search-button').on('click', function(event) {
         event.preventDefault();
         var city = $('#search-term').val();
@@ -52,10 +59,12 @@ function searchWeather( ) {
 }
 
 function compileCityList( citiesArr ){
-      
+      $('#cities-list').html('');
+
     citiesArr.forEach(e => {
         var html = "<button class='city' data-city='" + e + "'>" + e + "</button>";
-    $('#cities-list').prepend(html)
+        
+        $('#cities-list').prepend(html)
    
 });
 
@@ -67,6 +76,7 @@ function compileCityList( citiesArr ){
         })
     });
 }
+
 
 
 //Get weather from API
@@ -92,7 +102,7 @@ function fetchCityWeather( city ){
     
     //sends searched city to function to add it to the stored cities array
     addNewCity(cityName)
-
+   
     //displays image icon of current weather
     $('.weather-img').attr("src", weatherImg)
 
@@ -177,11 +187,11 @@ function renderUVIndex(uvIndex){
     function addNewCity(cityName) {
          
         if(citiesArr.indexOf(cityName) === -1){
-            console.log('adding new city to storage')
+           
             citiesArr.push( cityName );
             localStorage.setItem( cacheKey, JSON.stringify( citiesArr ) );
         }
-
+        compileCityList(citiesArr);
     };
 
     // Location established by client allowing location access
