@@ -119,7 +119,10 @@ function fetchCityWeather( city ){
         renderForcast(data);
         
     })
-})};
+})
+    .fail(function(){
+        alert("Please enter a valid city name!")
+    })};
 
 //render five day forcast
 function renderForcast(data) {
