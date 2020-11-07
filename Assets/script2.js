@@ -16,7 +16,6 @@ function getRandomImage() {
                 "url('https://cdn.pixabay.com/photo/2018/08/23/07/35/thunderstorm-3625405_960_720.jpg')", 
                 "url('https://cdn.pixabay.com/photo/2013/02/21/19/10/sea-84629_960_720.jpg')", 
                 "url('https://cdn.pixabay.com/photo/2016/10/18/21/22/california-1751455_960_720.jpg')",
-                "url('https://cdn.pixabay.com/photo/2013/10/02/23/03/dawn-190055_960_720.jpg')",
                 "url('https://cdn.pixabay.com/photo/2015/11/22/15/16/lightning-1056419_960_720.jpg')",
                 "url('https://cdn.pixabay.com/photo/2018/04/12/18/13/sunset-3314275_960_720.jpg')",
                 "url('https://cdn.pixabay.com/photo/2017/01/06/23/04/homberg-1959229_960_720.jpg')",
@@ -112,7 +111,7 @@ function fetchCityWeather( city ){
         url: queryURL,
         method: "GET"
     }).then(function (data) {
-      
+      console.log(data.current.uvi);
         var uvIndex = data.current.uvi
         renderCityData(data);
         renderUVIndex(uvIndex);
@@ -172,7 +171,7 @@ function renderUVIndex(uvIndex){
         $('#uv-index-span').html( uvIndex );
         $('#uv-index-span').css({ 'background-color': 'red', 'padding-left' : '2px', 'padding-right' : '2px', 'border-radius' : '3px' });
     
-    }else if( uvindex < 6 && uvIndex > 2){
+    }else if( uvIndex < 6 && uvIndex > 2){
         
         $('#uv-index-span').html( uvIndex )
         $('#uv-index-span').css({ 'background-color': 'yellow', 'padding-left' : '2px', 'padding-right' : '2px', 'border-radius' : '3px' });
