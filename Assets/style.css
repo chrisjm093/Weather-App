@@ -34,6 +34,10 @@ body {
     padding-right: 2px
 }
 
+.city {
+    font-family: 'Lato', sans-serif;
+}
+
 p {
     font-family: 'Lato', sans-serif;
     font-weight: bold;
@@ -81,6 +85,5 @@ p {
 
 #uv-index-card {
     display: inline-block;
-    
-    
+    box-shadow: -1px -1px 21px 0px rgba(50, 50, 50, 0.75);
 }
