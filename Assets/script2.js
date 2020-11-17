@@ -79,7 +79,7 @@ function fetchCityWeather( city ){
     }).then(function (response) {
  
         $('#city-name').html( `${response.name} ${currentDay}` );
-        
+        console.log(response);
         var cityName = response.name
         var latitude = response.coord.lat;
         var longitude = response.coord.lon;
