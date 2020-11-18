@@ -40,9 +40,9 @@ function searchWeather( ) {
         }
     });
     $('#search-button').on('click', function(event) {
-        event.preventDefault();
+       // event.preventDefault();
         var city = $('#search-term').val();
-    
+        $('#search-term').val("")
     fetchCityWeather(city);
     
     });
