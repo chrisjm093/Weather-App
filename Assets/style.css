@@ -24,10 +24,11 @@ body {
     background-size: cover;
 }
 
+.main-content {
+    padding-top: 5px;
+}
 .search-container {
     max-width: 20em;
-    background: rgb(219, 219, 219);
-    
     padding-left: 5px;
     padding-top: 2px;
     padding-right: 2px
@@ -35,6 +36,11 @@ body {
 
 .city {
     font-family: 'Lato', sans-serif;
+    margin-bottom: 4px;
+    border: solid 1px;
+    border-color: darkslategray;
+    text-align: left;
+    font-size: 25px;
 }
 
 p {
@@ -49,9 +55,15 @@ p {
     border: rgb(163, 163, 163) 1px solid;
 }
 
-.city-cards{
+.city-cards {
     width: 95%;
     border: rgb(163, 163, 163) 1px solid;
+    text-align: left;
+    font-family: 'Lato', sans-serif;
+}
+
+#cities-list {
+    width: 90%;
     text-align: left;
     font-family: 'Lato', sans-serif;
 }
@@ -85,4 +97,9 @@ p {
 #uv-index-card {
     display: inline-block;
     box-shadow: -1px -1px 21px 0px rgba(50, 50, 50, 0.75);
+}
+
+.delete-this{
+    float: right;
+    border-radius: 50%;
 }

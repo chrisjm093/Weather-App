@@ -53,18 +53,24 @@ function compileCityList( citiesArr ){
       $('#cities-list').html('');
 
     citiesArr.forEach(e => {
-        var html = `<button class='city' data-city='${e}'>${e}</button>`;
+        var html = `<button class='btn btn-light btn-block city' data-city='${e}'>${e}<span data-city='${e}'class='delete-this btn btn-outline-danger'>X</span></button>`;
         
         $('#cities-list').prepend(html)
     });
 
-    $('.city').each(function( ) {
+    $('.city').each( function()  {
         $( this ).click(function(){
             var cityName = $(this).data('city');
-            
             fetchCityWeather(cityName);
         })
     });
+
+    $('.delete-this').each( function() {
+        $( this ).click( function ()  {
+            var cityToDelete = $(this).data('city');
+             deleteFromStorage(cityToDelete);
+        })
+    })
 }
 
 //Get weather from API
@@ -79,7 +85,7 @@ function fetchCityWeather( city ){
     }).then(function (response) {
  
         $('#city-name').html( `${response.name} ${currentDay}` );
-        console.log(response);
+       
         var cityName = response.name
         var latitude = response.coord.lat;
         var longitude = response.coord.lon;
@@ -110,6 +116,18 @@ function fetchCityWeather( city ){
     })
 };
 
+//delete city from local storage
+function deleteFromStorage( cityToDelete ) {
+  
+    const index = citiesArr.indexOf( cityToDelete );
+    
+    if (index > -1 ){
+        citiesArr.splice(index, 1);
+        localStorage.setItem( cacheKey, JSON.stringify( citiesArr ))
+    };
+   
+    compileCityList(citiesArr);
+}
 //render five day forcast
 function renderForcast(data) {
    
@@ -175,6 +193,7 @@ function addNewCity(cityName) {
         localStorage.setItem( cacheKey, JSON.stringify( citiesArr ) );
     }
     compileCityList(citiesArr);
+    
 };
 
     // Location established by client allowing location access
